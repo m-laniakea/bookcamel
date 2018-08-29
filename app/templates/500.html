@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Oops!{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <blockquote>
+                <p>Something went wrong!<p>
+                <p>Please try again by refreshing the page.</p>
+         <p><small>We may be experiencing a lot of traffic.</small></p>
+    </blockquote>
+    
+        <div class="alert alert-success" role="alert">
+                 When ready, click <a href="/" class="alert-link">here</a> to Return.
+        </div>
+</div>
+{% endblock %}

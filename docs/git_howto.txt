@@ -1,0 +1,108 @@
+## Basic git commands
+#  Learn some slightly more advanced workflow with your freshly installed git
+
+If you're here, you already cloned the repository. 
+Good sofar!
+
+Why this howto? A good workflow with git is to clone the repository, make some changes, 
+make sure that part's working and then push your changes to the master
+repository for review.
+
+Sometimes we may want to create different versions (called branches), work on
+that separately and then merge the changes back into the master branch, but
+don't worry about that now.
+
+## Continuing on: 
+You've cloned me and now I'm in a folder that gives you an idea of what you're
+working on. 
+
+
+What to do now? Here are the steps. Don't worry, you can always check back
+in here if you're a bit lost.
+
+## HOW TO **
+===============================================================================
+1. Make sure your copy is up-to-date before you begin development
+ 
+        #git pull               // Grab the latest changes from the central branch
+                                // and merge them into local master branch
+
+2. Create a new local branch**. For example, my author is working on a mini
+   git-howto this session, so he's naming his branch "git_howto"
+
+        #git branch git_howto   // Create a new branch named git_howto
+
+   IMPORTANT: Switch to your newly created branch.
+
+        #git checkout git_howto
+   
+        #git branch             // List available branches. One with the "*" is
+                                // the one you're currently on
+
+
+        **For minor changes, no need for #2. Just follow #1, #3, #4 and
+        push your changes using 
+                #git push 
+
+
+3. Make some changes, then commit them. How to commit changes?
+
+        /* Optional commands
+
+        #git diff git_howto.txt // Show what changed 
+        #git status             // Show what's about to be commited
+
+        ** END Optional commands */
+
+
+        #git add git_howto.txt  // Add git_howto.txt to the staging area 
+        #git add other_file_you_changed.file
+
+        And Finally:
+
+        #git commit -m "Concise and descriptive commit message"
+
+
+4. Almost done. Make sure your copy is up to date again.
+
+        #git fetch              // Get latest changes from origin
+
+   This is just to make sure your copy is as in-sync with the origin as
+   possible 
+
+
+5. Now, for he best part. Pushing your changes!
+
+        #git push origin git_howto      
+
+   This pushes your local branch to origin for review. Remember to replace
+  "git_howto" with your branch name. ( "git branch" will reveal that secret)
+=============================================================================
+
+## EPILOGUE
+## Or - How a branch gets merged
+
+   Whomever owns the repository will then checkout the branch using
+
+        #git checkout git_howto
+
+   Should my branch and the contained changes be ok, 
+   the owner will check out the branch it should be merged into
+   (often master)
+
+        #git checkout master
+
+   And then merge the branch into master
+
+        #git merge git_howto --no-ff
+
+   Finally:
+
+        #git branch -d git_howto        // Delete the local branch
+                                        // Don't worry! git_howto.txt is safe
+                                        // in origin/master
+## THE END
+
+
+
+

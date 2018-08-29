@@ -1,0 +1,91 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}BookCamel{% endblock %}
+
+{% block head %}
+
+    {{ super() }}
+	<link rel="icon" href="{{ url_for('static', filename='fav.ico') }}" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}">
+
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">BookCamel</a>
+            {% if current_user.is_anonymous %}
+            <a class="navbar-brand" href="/register">Register</a>
+            {% else %}
+            <a class="navbar-brand" href="/u/{{ current_user.username }}">Profile</a>
+            {% endif %}
+            
+            <a class="navbar-brand" href="/books">Books</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+                {% if not disable_user_login %}
+                        <div class="navbar-form navbar-right">
+
+                        {% if current_user.is_anonymous %}
+                            <form action="" method="post" name="login" class="form-group">
+                                {{ form.hidden_tag() }}
+                                {{ form.login(class="form-control", placeholder="email or username" ) }}
+                                {{ form.password(class="form-control", placeholder="password") }}
+                                <button type="submit" class="btn btn-success">Log in</button>
+                                <a type="button" class="btn btn-info" href='/register'>Register</a>
+                            </form>
+
+                        {% else %}
+                        <div class="form-group"><h4>Signed in as: <a class="btn-link" href="/u/{{ current_user.username }}">{{ current_user.username }}</a></h4></div>
+                                <a class="btn btn-info" role="button" href="/logout">Log out</a>
+                                <a class="btn btn-secondary" role="button" href="/editprofile">Edit Account</a>
+                        </div>
+                        {% endif %}
+
+                {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class=flashes>
+      {% for category, message in messages %}
+
+        <div class="alert alert-{{ category }} alert-dismissible fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ message }}
+        </div>
+
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block page_content %}{% endblock %}
+  
+</div>
+
+<footer class="container-fluid text-center">
+        <p>© 2018 BookCamel. Made with <a href="http://flask.pocoo.org">Flask</a> and <a href="http://zenhub.com">ZenHub.</p>
+</footer>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+
+{% endblock %}

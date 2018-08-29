@@ -1,0 +1,69 @@
+CREATE TABLE users(
+	user_ID int PRIMARY KEY, 
+	user_name_first CHAR(50),
+	user_name_last CHAR(50),
+	user_address CHAR(80),
+	user_apartment CHAR(10),
+	user_city CHAR(80),
+	user_state CHAR(2), 
+	user_zip CHAR(10),
+	user_join_date DATE,
+	user_last_logged_in DATE,
+	)
+
+CREATE TABLE books (
+	book_ID INT PRIMARY KEY,
+	book_title CHAR(100), 
+	book_author CHAR(100),
+	book_ISBN_10 INT,
+	book_ISBN_13 INT,
+	book_PageCount INT,
+	book_edition INT,
+	book_publisher CHAR(100),
+	book_publish_date DATE, 
+	book_cover_image CHAR(150)
+	)
+
+CREATE TABLE listing (
+	listing_ID INT PRIMARY KEY,
+	listing_user INT FOREIGN KEY,
+	listing_book INT FOREIGN KEY, 
+	listing_price MONEY,
+	listing_will_trade BOOLEAN,
+	listing_is_free BOOLEAN,
+	listing_condition INT FOREIGN KEY,
+	listing_post_date DATE,
+	listing_expiration_date DATE,
+	listing_transaction_successful BOOLEAN
+	)
+	
+CREATE TABLE messages (
+	message_ID INT PRIMARY KEY,
+	message_from INT FOREIGN KEY,
+	message_to INT FOREIGN KEY,
+	message_date DATE,
+	message_body CHAR(1500)
+)
+
+CREATE TABLE transactions (
+	transaction_ID INT PRIMARY KEY,
+	transaction_listing INT FORIEGN KEY,
+	transaction_recipient INT FOREIGN KEY,
+	transaction_date DATE
+)
+
+CREATE TABLE reviews (
+	review_ID INT PRIMARY KEY,
+	review_score INT, 
+	review_author INT FOREIGN KEY,
+	review_reviewee INT FOREIGN KEY, 
+	review_as_advertised BOOLEAN, 
+	review_note CHAR(2000)
+)
+	
+CREATE TABLE condition (
+	condition_id INT PRIMARY KEY,
+	condition_description CHAR(10),
+	condition_note CHAR(200)	
+	)
+	

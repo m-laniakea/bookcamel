@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block page_content %}
+
+<h2>"{{ book.title }}"</h2>
+<div class="container">
+  <div class="list-group">
+                  <button type="button" class="list-group-item" >Written by: <b>{{ book.author }}</b></button>
+                  <button type="button" class="list-group-item"> Price: <b>
+                          {% if book.price <= 0 %}
+                                  Free
+                          {% else %}
+                           ${{ "%.2f" % book.price }}
+                          {% endif %}
+                          </b>
+                  </button>
+                  <button type="button" class="list-group-item">Location: <b>{{ owner.location }}</b></button>
+                  <button type="button" class="list-group-item" }}>Condition: <b>{{ book.condition }}/5</b></button>
+                  <li type="button" class="list-group-item" }}>ISBN13: <a href="http://www.amazon.com/gp/search?keywords={{ book.isbn }}"><b>{{ book.isbn }}</b></a></li>
+                  <li type="button" class="list-group-item" }}>Owner: <a href="/u/{{ owner.username }}"><b>{{ owner.username }}</b></a></li>
+
+                  <button type="button" class="list-group-item" }}>Owner Rating:                 
+                          <span class="label label-{{ owner.rating_color(rating) }}">{{ rating }}</span>
+                  </button>
+
+  </div>
+  {% if current_user.is_anonymous %}
+  <a type="button" class="btn btn-warning" href="#">You must be logged in to contact the Owner</a>
+  {% elif current_user == owner %}
+  <a type="button" class="btn btn-danger" href="/d/b/{{ book.id }}">Delete This Book</a>
+  <a type="button" class="btn btn-primary" href="/add/{{ book.id }}">Edit This Book</a>
+  {% else %}
+  <form action="" name="Contact" class="form-group" method="post">
+          {{ form2.hidden_tag() }}
+          {{ form2.submit(class="btn btn-success") }}
+  </form>
+
+  {% endif %}
+</div>
+
+
+
+
+{% endblock %}

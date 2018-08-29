@@ -1,0 +1,11 @@
+## Some helpful git commands
+
+# git log --oneline --graph --decorate          // Show commit history and branches
+
+# git remote update origin --prune              // Update from remote, removing unreachable targets
+
+# git checkout file.txt                         // Revert changes to a file
+
+# git diff --cached                             // Show changes you made compared to last commit
+
+

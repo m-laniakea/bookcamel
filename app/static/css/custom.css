@@ -1,0 +1,43 @@
+/* Index main book header */
+.jumbotron.text-center
+{
+    background: url("/static/img/stack.png"); 
+    background-repeat: fill;
+    background-size: cover;
+    background-color: #e6e6e6;
+}
+
+/* Free indicator */
+.badge-success
+{
+    background-color:#5cb85c;
+}
+
+.list-group .custom-pad-under
+{
+    margin-bottom: 16px;
+}
+
+/* Fixes for element size */
+form 
+{
+    line-height: inherit;
+}
+
+.page-header form
+{
+    max-width:350px;
+}
+
+.form-control
+{
+    height: 42px;
+}
+
+.container .page-header .form-group input
+{
+    max-width: 350px;
+}
+
+
+

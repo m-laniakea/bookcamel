@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Register for BookCamel{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.autoc.min.js') }}"></script>
+<script type="text/javascript">$('#autoc').autocomplete({ lookup: {{ locations | tojson }} });</script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/autoc.css') }}">
+{% endblock %}
+
+
+{% block page_content %}
+
+<div class="page-header">
+	<h2>Edit Profile</h2>
+<p>Please edit your user information below:</p>
+
+<form action="" method="post" name="edit" class="form-group">
+ {{ form.hidden_tag() }}
+ 
+	{{ form.username(class="form-control", placeholder="username", autofocus="autofocus") }}
+	{{ form.email(class="form-control", placeholder="email") }}
+	{{ form.location(class="form-control", id="autoc", placeholder="location") }}
+	{{ form.password(class="form-control", placeholder="re-enter password") }}
+    {{ form.password_confirmation(class="form-control", placeholder="comfirm password") }}
+    <p></p>
+    {{ form.submit(class="btn btn-success") }}
+		
+  </form>   
+</div>
+
+{% endblock %}

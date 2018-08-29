@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Re: {{ conversation.subject }}{% endblock %}
+
+{% block page_content %}
+
+
+
+
+
+<h2 class="text-info">Re: <a href='/b/{{conversation.book_id}}'>"{{ conversation.subject }}"</a></h2>
+<h4>With: {% for p in conversation.participants %}
+                {% if current_user != p %}
+                <a href='/u/{{ p.username }}' class="text-success">{{ p.username + " " }}</a>
+                {% endif %}
+          {% endfor %}
+
+</h4>
+
+
+<div class="container">
+  <div class="list-group">
+          {% for m in messages %}
+          <li class="list-group-item"><b>{{ m.sender }}</b>: {{ m.contents }}<span class="badge">{{ moment(m.send_time).fromNow() }}</span></li>
+          {% endfor %}
+  </div>
+</div>
+
+<form action="" method="post" name="Send" class="form-group">
+        {{ form.hidden_tag() }}
+
+        {{ form.text(class="form-control", placeholder="Your message", autofocus="autofocus") }}
+        <p></p>
+        {{ form.submit(class="btn btn-success") }}
+        <a type="button" class="btn btn-danger pull-right" href="/d/c/{{ conversation.id }}">Delete This Conversation</a>
+</form>
+
+
+{% endblock %}
