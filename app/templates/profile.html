@@ -18,7 +18,7 @@
         <p>
                 User rating: <span class="label label-{{ user.rating_color(rating) }}">{{ rating }}</span>
         </p>
-        {% if current_user != user %}
+        {% if not current_user.is_anonymous and current_user != user %}
         <p>Rate this user: 
         <a class="btn btn-success btn-xs" href="/r/{{ user.id }}/True"><span class="glyphicon glyphicon-plus"></span></a>
         <a class="btn btn-danger btn-xs" href="/r/{{ user.id }}/False"><span class="glyphicon glyphicon-minus"></span></a>

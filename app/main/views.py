@@ -455,29 +455,28 @@ def search():
 @main.route('/r/<uid>/<positive>')
 def rate_user(uid, positive):
 
-    if current_user.is_anonymous:
-        flash('You must be logged in to rate users.', 'info')
-        return redirect( url_for('main.index') )
-
     user = User.query.get(int(uid))
     
-    # if user exists
+    # if user to rate exists
     if user:
-        if current_user == user:
+
+        if current_user.is_anonymous:
+            flash('You must be logged in to rate users.', 'info')
+
+        elif current_user == user:
             flash('You cannot rate yourself.', 'warning')
 
         # Check if valid rating was passed
         elif positive == "True" or positive == "False":
             rating = True if positive == 'True' else False
         
-            old_vote = False 
+            old_vote = None 
 
             # Check if current user has rated this user
-            for v in Vote.query.filter_by(voted_by_id=current_user.id):
-                if v.voted_for_id == user.id:
-                    flash('updating vote')
+            for vote in Vote.query.filter_by(voted_by_id=current_user.id):
+                if vote.voted_for_id == user.id:
                     # Get vote last cast
-                    old_vote = v
+                    old_vote = vote
                     break
 
             # If vote already cast for this user
@@ -485,14 +484,16 @@ def rate_user(uid, positive):
                 # If new vote is same as old
                 if rating == old_vote.positive:
                     flash('You already gave this vote to ' + user.username + '.', 'info')
-                    return redirect( url_for('main.profile', username=user.username) )
                 
-                # New vote is different, adjust users rating
-                user.adjust_rating(old_vote.positive)
-                # Save changed vote
-                old_vote.positive = rating
-                db.session.commit()
-                flash('Rating for ' + user.username + ' successfully updated.', 'success')
+                else:
+                    # New vote is different, adjust users rating
+                    user.adjust_rating(old_vote.positive)
+
+                    # Save changed vote
+                    old_vote.positive = rating
+                    db.session.commit()
+
+                    flash('Rating for ' + user.username + ' successfully updated.', 'success')
             
             # User is casting a brand new vote
             else:
