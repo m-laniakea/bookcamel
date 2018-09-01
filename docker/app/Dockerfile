@@ -6,9 +6,9 @@ RUN pip install virtualenv && adduser -D bookcamel
 USER bookcamel
 WORKDIR /home/bookcamel
 
-COPY reqs.txt reqs.txt
-COPY cfg.py cfg.py
-COPY cmd.py cmd.py
+COPY reqs.txt .
+COPY cfg.py .
+COPY cmd.py .
 COPY app app
 
 # Create and populate virtual environment
