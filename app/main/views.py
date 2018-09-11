@@ -434,8 +434,10 @@ def search():
     searchState = "All Books"
 
     if len(search) > 0:
-        # Searches if title contains the search parameter
-        allbooks = Book.query.filter( Book.owner.has(location=location), Book.title.contains(search) | Book.isbn.contains(search) | Book.author.contains(search) );
+        search_params = '%{0}%'.format(search)
+
+        # Searches if title or author contains the search parameter
+        allbooks = Book.query.filter( Book.owner.has(location=location), Book.title.ilike(search_params) | Book.author.ilike(search_params) );
 
         searchState = 'Results for \"'+ search + '\"';
     else:
