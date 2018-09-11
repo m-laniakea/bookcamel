@@ -220,7 +220,7 @@ class Book(db.Model):
     author = db.Column(db.String(128), unique=False, index=True)
     condition = db.Column(db.Integer, unique=False, index=True)
     price = db.Column(db.Float(precision=2, default=0))
-    isbn = db.Column(db.Integer, unique=False)
+    isbn = db.Column(db.BigInteger, unique=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
     def __repr__(self):

@@ -2,6 +2,11 @@
 `docker build -f docker/app/Dockerfile -t bookcamel:latest .`
 `docker run --name bookcamel -d -p 5000:8000 bookcamel:latest`
 
+You may also launch the "production" deployment using
+`docker-compose -f docker/docker-compose.yaml up -d --build`
+
+Currently the database **must** be populated manually
+
 #### Getting started on Unix:
 
     Install:

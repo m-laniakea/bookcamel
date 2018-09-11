@@ -1,0 +1,41 @@
+version: '3.3'
+
+services:
+
+  app:
+    build: 
+      context: ..
+      dockerfile: ./docker/app/Dockerfile
+
+    expose: 
+      - 5000
+
+    ports: 
+      - "80:8000"
+
+    environment:
+      - RUN_MODE=production
+      - DB_USER=camel
+      - DB_PASS=camel
+
+    depends_on:
+      - postgres
+
+  postgres:
+    build:
+      context: ..
+      dockerfile: ./docker/postgres/Dockerfile
+
+    volumes:
+      - data-volume:/var/lib/postgresql/data
+
+    expose:
+      - 5432
+
+    environment:
+      - POSTGRES_USER=camel
+      - POSTGRES_PASSWORD=camel
+
+volumes:
+  data-volume:
+    driver: local
