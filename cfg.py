@@ -46,12 +46,18 @@ class testConfig(Config):
 ##
 ## NOT READY
 class prodConfig(Config):
-    SQL_ALCHEMY_DATABASE_URI = 'mysql://node@somesqlserver.com/db'
+
+    DB_USERNAME = os.getenv('DB_USER')
+    DB_PASSWORD = os.getenv('DB_PASS')
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'postgres://{0}:{1}@postgres:5432'.format(DB_USERNAME, DB_PASSWORD)
     
 cfg = {
-        'dev'  : devConfig,
-        'test' : testConfig,
-        'prod' : prodConfig,
+        'dev'           : devConfig,
+        'test'          : testConfig,
+        'prod'          : prodConfig,
+        'production'    : prodConfig,
 
-        'default' : devConfig
+        'default'       : devConfig
 }

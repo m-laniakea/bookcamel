@@ -1,5 +1,13 @@
+#### Getting started using Docker:
+`docker build -f docker/app/Dockerfile -t bookcamel:latest .`
+`docker run --name bookcamel -d -p 5000:8000 bookcamel:latest`
 
-Getting started on Unix:
+You may also launch the "production" deployment using
+`docker-compose -f docker/docker-compose.yaml up -d --build`
+
+Currently the database **must** be populated manually
+
+#### Getting started on Unix:
 
     Install:
       Python 2.7 (package)
@@ -10,7 +18,7 @@ Getting started on Unix:
       # sudo pip install -r reqs.txt
       # ./cmd.py runserver
 
-Getting started on Windows:
+#### Getting started on Windows:
 
     Install:
       Download Python 2.7.*, link: https://www.python.org/downloads/
@@ -26,7 +34,7 @@ Getting started on Windows:
       # pip install -r reqs.txt
       # python cmd.py runserver
 
-Getting started on Mac OS:
+#### Getting started on Mac OS:
 
     Install Python 2.7 with Easy Install
     - Open Terminal
@@ -34,12 +42,12 @@ Getting started on Mac OS:
     
     Run: (use Unix run instructions)
 
-Viewing the site:
+## Viewing the site:
 
     Open "http://localhost:5000" in your web browser
 
 Initializing the database with filler content (model definitions):
-Automatically done in Dev environment
+This is automatically done in dev (default) environment
 
     On Unix: (in nv prompt)
       # ./cmd.py shell
@@ -50,3 +58,6 @@ Automatically done in Dev environment
       # python .\cmd.py shell
       # db.create_all()
       Ctrl + C
+
+#### Exiting the virtual environment:
+`deactivate`

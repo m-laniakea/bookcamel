@@ -41,7 +41,6 @@ def db_init(app):
             print('Database: \033[93mAlready Populated.\033[0m')
 
 
-
 def create_app(name):
     app = Flask(__name__)
     app.config.from_object(cfg[name])
@@ -51,9 +50,7 @@ def create_app(name):
     login_manager.init_app(app)
     db.init_app(app)
 
-
-    if name == 'dev' or name == 'default':
-        db_init(app)
+    db_init(app)
 
     bootstrap.init_app(app)
     moment.init_app(app)
