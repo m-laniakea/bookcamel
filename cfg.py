@@ -56,7 +56,6 @@ class prodConfig(Config):
 cfg = {
         'dev'           : devConfig,
         'test'          : testConfig,
-        'prod'          : prodConfig,
         'production'    : prodConfig,
 
         'default'       : devConfig

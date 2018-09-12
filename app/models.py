@@ -190,7 +190,6 @@ class User(db.Model, UserMixin):
                 db.session.add(book)
         
         db.session.commit()
-        print('Database population: \033[92mSuccess.\033[0m')
 
     # Return 1-n random words as a string
     @staticmethod
