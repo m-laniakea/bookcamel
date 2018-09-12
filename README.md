@@ -5,8 +5,6 @@
 You may also launch the "production" deployment using
 `docker-compose -f docker/docker-compose.yaml up -d --build`
 
-Currently the database **must** be populated manually
-
 #### Getting started on Unix:
 
     Install:

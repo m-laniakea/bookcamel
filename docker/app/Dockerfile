@@ -22,6 +22,7 @@ RUN virtualenv --python=python2.7 nv && source nv/bin/activate \
 EXPOSE 8000 
 
 ENTRYPOINT source nv/bin/activate \
+               && until nc -z postgres 5432; do sleep 1; done \
                && gunicorn --access-logfile access.log --error-logfile errors.log -b :8000 cmd:app
 
 # For debugging
