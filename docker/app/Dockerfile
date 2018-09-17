@@ -23,7 +23,7 @@ EXPOSE 8000
 
 ENTRYPOINT source nv/bin/activate \
                && until nc -z postgres 5432; do sleep 1; done \
-               && gunicorn --access-logfile access.log --error-logfile errors.log -b :8000 cmd:app
+               && gunicorn --error-logfile errors.log -b :8000 cmd:app
 
 # For debugging
 # ENTRYPOINT source nv/bin/activate && ./cmd.py runserver -h 0.0.0.0 -p 8000 &> out.txt

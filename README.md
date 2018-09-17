@@ -5,6 +5,12 @@
 You may also launch the "production" deployment using
 `docker-compose -f docker/docker-compose.yaml up -d --build`
 
+One possible way to create a signed certificate:
+```
+docker run -p 80:80 -it --rm -v docker_certs:/etc/letsencrypt -v docker_certs-data:/data/letsencrypt \
+certbot/certbot certonly --rsa-key-size 4096 -d website.com -d www.website.com --standalone
+```
+
 #### Getting started on Unix:
 
     Install:
