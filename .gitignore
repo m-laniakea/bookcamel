@@ -67,10 +67,13 @@ docs/_build/
 # PyBuilder
 target/
 
-#Ipython Notebook
+# Ipython Notebook
 .ipynb_checkpoints
 
-#OS Cache and Attribute Files
+# OS Cache and Attribute Files
 .DS_Store
 thumbs.db
 desktop.ini
+
+# Certificates
+*.pem

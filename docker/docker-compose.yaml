@@ -8,10 +8,7 @@ services:
       dockerfile: ./docker/app/Dockerfile
 
     expose: 
-      - 5000
-
-    ports: 
-      - "80:8000"
+      - 8000
 
     environment:
       - RUN_MODE=production
@@ -20,6 +17,7 @@ services:
 
     depends_on:
       - postgres
+
 
   postgres:
     build:
@@ -36,6 +34,27 @@ services:
       - POSTGRES_USER=camel
       - POSTGRES_PASSWORD=camel
 
+
+  nginx:
+    build: ./nginx
+
+    volumes:
+      - certs:/etc/letsencrypt
+      - certs-data:/data/letsencrypt
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    depends_on:
+        - app
+
 volumes:
   data-volume:
+    driver: local
+
+  certs:
+    driver: local
+
+  certs-data:
     driver: local
