@@ -4,13 +4,10 @@
 
 {% block head %}
 {{ super() }}
-	<link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-	<link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-	
 	<style>
 		.jumbotron {
 			padding: 150px 25px;
-			font-family: Montserrat, sans-serif;
+			font-family: sans-serif;
 		}
 
 		.container-fluid {
@@ -18,11 +15,10 @@
 		}			
 
 		body {
-			font: 400 15px Lato, sans-serif;
+			font: 400 15px, sans-serif;
 			line-height: 1.8;
 			color: #000000;
 		}
-
 
 		.logo {
 			color:  #3366cc;
@@ -74,17 +70,16 @@
 
 {% block page_content %}
 
-<a name="top"></a>
+<a id="top"></a>
 
 <div class="jumbotron text-center">
   <div class="container">
     <h1>Welcome to BookCamel.</h1>
     
     <h2>The Solution to Overpriced Textbooks</h2>
-    <p><a class="btn btn-primary btn-lg" href="/register" role="button">Get Started &raquo;</a></p>
+    <p><a class="btn btn-primary btn-lg" href="/books" role="button">Get Started &raquo;</a></p>
   </div>
 </div>
-
 
 <h2>Latest book listings</h2>
 <div id="myCarousel" class="carousel slide text-center bg-light-grey" data-ride="carousel">
@@ -136,9 +131,9 @@
         <div class="col-sm-8">
                 <h2><b>About BookCamel</b></h2> <br>
             <h3>Looking for textbooks? <br> Have expensive textbooks collecting dust at home? <br> Trade with BookCamel! </h3> <br>
-            <p><font size="4.5"> Unlike other websites, we focus on person-to-person transactions, meaning you get your books when you want them, in the condition you want them. No packing, waiting, shipping, no return dates. Just great deals from students like yourself.</font></p> <br>
-            <h4> <p align= "left"><strong>Cheaper textbooks means more money in your pocket.</strong></h4> <br>
-            <p> <a class="btn btn-default btn-lg" href="/register" role="button"> Join us! </a>
+            <p style="font-size: larger">Unlike other websites, we focus on person-to-person transactions, meaning you get your books when you want them, in the condition you want them. No packing, waiting, shipping, no return dates. Just great deals from students like yourself.</p><br>
+            <h4><strong>Cheaper textbooks means more money in your pocket.</strong></h4><br>
+            <a class="btn btn-default btn-lg" href="/register" role="button"> Join us! </a>
         </div>
         <div class="col-sm-4">
             <span class="glyphicon glyphicon-book logo"></span>
@@ -154,7 +149,7 @@
         </div>
         <div class="col-sm-8">
                 <h2><b>Our Purpose</b></h2><br>
-             <p><font size="4.5"><strong>BookCamel was made by college students, for college students. </strong> <br> <br> The seven creators of this site are all university students that were frustrated with the limited options for buying and selling textbooks. <br> <br> We created this platform to help students like ourselves to afford their textbooks and make it easy to sell them when their courses are finished. <br> <br> Here's to no more ridiculous buy-back offers from bookstores.</font></p>
+             <p style="font-size: larger"><strong>BookCamel was made by college students, for college students. </strong> <br> <br> The seven creators of this site are all university students that were frustrated with the limited options for buying and selling textbooks. <br> <br> We created this platform to help students like ourselves to afford their textbooks and make it easy to sell them when their courses are finished. <br> <br> Here's to no more ridiculous buy-back offers from bookstores.</p>
         </div>
         
     </div>

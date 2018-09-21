@@ -49,8 +49,8 @@ class SignupForm(Form):
 
     # Check if username exists
     def validate_username(self, field):
-        name = field.data.upper()
-        if User.query.filter( func.upper(User.username) == name ).first(): 
+        name = field.data.lower()
+        if User.query.filter(func.lower(User.username) == name).first(): 
             raise ValidationError('Username already taken. Ignoring capitalization, your username must be unique.')
 
 
@@ -128,11 +128,12 @@ def flash_errors(form):
 # Log in user if checks pass
 ##
 def process_login(form):
-    user = User.query.filter_by(email=form.login.data.lower()).first()
+    login_key = form.login.data.strip().lower()
+    user = User.query.filter_by(email=login_key).first()
 
     # Check if user entered username instead
     if user is None:
-        user = User.query.filter_by(username=form.login.data).first()
+        user = User.query.filter(func.lower(User.username) == login_key).first()
 
     if user is not None and user.check_password(form.password.data):
         login_user(user, True)

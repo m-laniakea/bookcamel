@@ -20,7 +20,7 @@
 <div class="container">
   <div class="list-group">
           {% for m in messages %}
-          <li class="list-group-item"><b>{{ m.sender }}</b>: {{ m.contents }}<span class="badge">{{ moment(m.send_time).fromNow() }}</span></li>
+          <div class="list-group-item"><b>{{ m.sender }}</b>: {{ m.contents }}<span class="badge">{{ moment(m.send_time).fromNow() }}</span></div>
           {% endfor %}
   </div>
 </div>
@@ -31,7 +31,7 @@
         {{ form.text(class="form-control", placeholder="Your message", autofocus="autofocus") }}
         <p></p>
         {{ form.submit(class="btn btn-success") }}
-        <a type="button" class="btn btn-danger pull-right" href="/d/c/{{ conversation.id }}">Delete This Conversation</a>
+        <a class="btn btn-danger pull-right" href="/d/c/{{ conversation.id }}">Delete This Conversation</a>
 </form>
 
 
