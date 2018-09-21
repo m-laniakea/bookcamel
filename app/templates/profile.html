@@ -39,8 +39,6 @@
   </div>
 </div>
 
-
-
 {% if current_user == user %}
 <h2>Your Conversations</h2>
         {% if conversations[0] %}
@@ -56,12 +54,10 @@
     </div>
   </div>
         {% else %}
-        <a type="button" class="list-group-item" href='#'><b>No conversations yet.</b></a>
+        <a class="list-group-item" href='#'><b>No conversations yet.</b></a>
         {% endif %}
 
 {% endif %}
-
-
 
 <h2>{{ user.username }}'s Books</h2>
   <div class="container">
@@ -71,7 +67,7 @@
                   {% endif %}
                   {% if books %}
                   {% for book in books %}
-                  <a type="button" class="list-group-item" href='/b/{{ book.id }}'>
+                  <a class="list-group-item" href='/b/{{ book.id }}'>
                           "{{ book.title }}" by {{ book.author }}
                                   {% if book.price <= 0 %}
                                   <span style="border-radius: 1em; font-size: 0.9em" class="label label-success pull-right">
@@ -86,12 +82,9 @@
                   {% endfor %}
 
           {% else %}
-          <a type="button" class="list-group-item list-group-item-info"><b>No books yet :(</b></a>
+          <a class="list-group-item list-group-item-info"><b>No books yet :(</b></a>
           {% endif %}
-
+          </div>
   </div>
-
-
-
 
 {% endblock %}

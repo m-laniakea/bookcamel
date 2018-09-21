@@ -4,8 +4,8 @@
 
 {% block scripts %}
 {{ super() }}
-<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.autoc.min.js') }}"></script>
-<script type="text/javascript">$('#autoc').autocomplete({ lookup: {{ locations | tojson }} });</script>
+<script src="{{ url_for('static', filename='js/jquery.autoc.min.js') }}"></script>
+<script>$('#autoc').autocomplete({ lookup: {{ locations | tojson }} });</script>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/autoc.css') }}">
 {% endblock %}
 

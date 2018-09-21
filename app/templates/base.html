@@ -5,6 +5,7 @@
 {% block head %}
 
     {{ super() }}
+    <meta charset="utf-8"/>
 	<link rel="icon" href="{{ url_for('static', filename='fav.ico') }}" type="image/x-icon">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}">
 
@@ -39,16 +40,17 @@
                                 {{ form.login(class="form-control", placeholder="email or username" ) }}
                                 {{ form.password(class="form-control", placeholder="password") }}
                                 <button type="submit" class="btn btn-success">Log in</button>
-                                <a type="button" class="btn btn-info" href='/register'>Register</a>
+                                <a class="btn btn-info" href='/register'>Register</a>
                             </form>
 
                         {% else %}
-                        <div class="form-group"><h4>Signed in as: <a class="btn-link" href="/u/{{ current_user.username }}">{{ current_user.username }}</a></h4></div>
+                        <div class="form-group">
+                                <h4>Signed in as: <a class="btn-link" href="/u/{{ current_user.username }}">{{ current_user.username }}</a></h4>
+                        </div>
                                 <a class="btn btn-info" role="button" href="/logout">Log out</a>
                                 <a class="btn btn-secondary" role="button" href="/editprofile">Edit Account</a>
-                        </div>
                         {% endif %}
-
+                        </div>
                 {% endif %}
         </div>
     </div>
@@ -79,7 +81,7 @@
 </div>
 
 <footer class="container-fluid text-center">
-        <p>© 2018 BookCamel. Made with <a href="http://flask.pocoo.org">Flask</a> and <a href="http://zenhub.com">ZenHub.</p>
+        <p>© 2018 BookCamel. Made with <a href="http://flask.pocoo.org">Flask</a> and <a href="http://zenhub.com">ZenHub</a>.</p>
 </footer>
 
 {% endblock %}
