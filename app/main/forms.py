@@ -61,7 +61,7 @@ class SignupForm(Form):
                 # Matching location found
                 return;
         # else (No matching location found)
-        raise ValidationError('Please use an approved location. Type more slowly to see the available choices.')
+        raise ValidationError('BookCamel is currently only available at 42 select universities. Please type more slowly to see the available choices.')
 ##
 # EditProfileForm for '/editprofile'
 ##
