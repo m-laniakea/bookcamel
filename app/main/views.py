@@ -95,21 +95,28 @@ def editprofile():
         return redirect( url_for('main.index') )
 
     if form.validate_on_submit():
-        current_user.set_password = form.password.data
-        current_user.username = form.username.data
+        # If email already in use, return error and reload
+        if (current_user.email != form.email.data
+           and User.query.filter_by(email=form.email.data).first()): 
+                flash('Email already in use.', 'danger')
+                return render_template('editprofile.html', form=form, locations=user_locations )
+
+        if form.password.data:
+            current_user.set_password = form.password.data
+
         current_user.email = form.email.data
+        current_user.location = form.location.data
         db.session.commit()
+
         flash('Profile successfully updated', 'success')
         return redirect( url_for('main.profile', username=current_user.username) )
 
 
     form.location.data = current_user.location
-    form.username.data = current_user.username
     form.email.data = current_user.email
 
-
     flash_errors(form)
-    return render_template('editprofile.html', form=form, locations = user_locations )
+    return render_template('editprofile.html', form=form, locations=user_locations )
 
 
 ##

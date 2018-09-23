@@ -67,17 +67,22 @@ class SignupForm(Form):
 ##
 class EditProfileForm(Form):
     email = StringField('Email', validators=[Required(), Length(1, 64), Email()])
-    username = StringField('username', validators=[Required(), Length(1,64), Regexp('^[a-zA-Z0-9][\._a-z0-9]*$', 0, 
-        'Your username may start with an upper- or lowercase letter or a number. Only lowercase letters, numbers, underscores, and periods may follow.')])
-
     location = StringField('Location', validators=[Required(), Length(1,64)])
 
-    password = PasswordField('Password', validators = [Required(), EqualTo('password_confirmation', message='Your passwords must match.')]) 
-    password_confirmation = PasswordField('Confirm Password', validators = [Required()])
+    password = PasswordField('Password', validators = [EqualTo('password_confirmation', message='Your passwords must match.')]) 
+    password_confirmation = PasswordField('Confirm Password')
 
     submit = SubmitField("Save")
-    
 
+    # Check if location is on the list
+    def validate_location(self, field):
+        for l in user_locations:
+            if l == field.data:
+                # Matching location found
+                return;
+        # else (No matching location found)
+        raise ValidationError('Please use an approved location. Type more slowly to see the available choices.')
+    
 ##
 # BookForm form for '/add' + editing books
 ##
