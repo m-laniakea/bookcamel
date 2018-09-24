@@ -90,17 +90,47 @@ class BookForm(Form):
     title = StringField('Title', validators=[Required(), Length(1,128)])
     author = StringField('Author', validators=[Required(), Length(1,128)])
     condition = IntegerField('Condition', validators=[Required(), NumberRange(1,5)])
-    isbn = StringField('ISBN13', validators=[Required()])
+    isbn = StringField('ISBN13')
     price = DecimalField('Price', validators=[NumberRange(0,8888.89)] )
 
     submit = SubmitField("Save")
 
+    def is_valid_isbn13(self, isbn):
+        check_sum = isbn % 10 
+        triple = True
+        
+        while isbn:
+            isbn /= 10
+            digit = isbn % 10
+
+            if triple:
+                digit *= 3
+
+            triple = not triple
+            check_sum += digit
+
+        return 0 == check_sum % 10
 
     def validate_isbn(self, field):
+        # Keep only digits
+        field.data = filter(lambda d: d.isdigit(), field.data)
 
-        if len(field.data) != 13:
+        if 0 == len(field.data):
+            field.data = 0
+            return
+
+        isbn_int = 0
+
+        try:
+            isbn_int = int(field.data)
+        except:
+            pass
+
+        if len(field.data) != 13 or 0 == isbn_int:
             raise ValidationError('ISBN-13 code must have 13 digits')
 
+        if not self.is_valid_isbn13(isbn_int):
+            raise ValidationError('Please enter a valid ISBN-13')
 
 ##
 # MessageForm for conversations

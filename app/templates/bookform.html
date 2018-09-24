@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Edit Book{% endblock %}
+{% block title %}Book Details{% endblock %}
 
 {% block page_content %}
 
 <div class="page-header">
-  <h4>Edit Book</h4>
+  <h4>Book Details</h4>
 
 
   <form action ="" method="post" name="register" class="form-group">
@@ -14,13 +14,11 @@
             {{ form.title(class="form-control", placeholder="Book Title", autofocus="autofocus") }}
             {{ form.author(class="form-control", placeholder="Written By") }}
             {{ form.condition(class="form-control", placeholder="Book Condition 1 - 5 (5 is excellent)") }}
-            {{ form.isbn(class="form-control", placeholder="ISBN13 (Should be on the back of the book)") }}
+            {{ form.isbn(class="form-control", placeholder="ISBN13 (optional, but nice)") }}
             {{ form.price(class="form-control", placeholder="Price (0 if giving away for free)") }}
             <p></p>
             {{ form.submit(class="btn btn-success") }}
   </form>
-
-
 </div>
 
 {% endblock %}

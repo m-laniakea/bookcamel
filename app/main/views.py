@@ -266,13 +266,8 @@ def edit_book():
         flash("You must be logged-in to add books.", "info")
         return redirect( url_for('main.index') )
 
-    # If isbn data entered, stip of non-digit characters
-    if form.isbn.data:
-        form.isbn.data = filter( lambda c: c.isdigit(), form.isbn.data )
-
     # User has hit "Save" on BookForm
     if form.validate_on_submit():
-
 
         b = Book(title=form.title.data, author=form.author.data, 
                 condition=form.condition.data, isbn=int(form.isbn.data), 
@@ -300,7 +295,6 @@ def modify_book(bookid):
 
     book = Book.query.get( int(bookid) )
     print book
-    
 
     if current_user.is_anonymous:
         flash("You must be logged-in to edit books.", "info")
@@ -318,13 +312,16 @@ def modify_book(bookid):
         flash("Book has been successfully edited", "success")
 
         # Return user to their profile
-        return redirect( url_for('main.profile', username=current_user.username) )
-
+        return redirect( url_for('main.modify_book', bookid=bookid) )
 
 
     form.author.data = book.author
     form.price.data = book.price
     form.isbn.data = book.isbn
+
+    if 0 == book.isbn:
+        form.isbn.data = ""
+
     form.condition.data = book.condition
     form.title.data = book.title
   
@@ -332,7 +329,6 @@ def modify_book(bookid):
     # Render errors from BookForm if present
     flash_errors(form)
     return render_template("bookform.html", form=form, book=book)
-
 
 ##
 # Conversation route
