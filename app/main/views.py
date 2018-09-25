@@ -11,6 +11,9 @@ from . forms import LoginForm, SignupForm, BookForm, MessageForm, ConvInitForm, 
 from . location_list import user_locations
 from datetime import datetime
 
+DEFAULT_LOCATION = "University of Washington"
+QUERY_LIMIT = 42
+
 ##
 #
 ## Syntax for flashing: (display message in browser)
@@ -376,8 +379,6 @@ def conversation(cid):
 ##
 @main.route('/books', methods=['GET','POST'])
 def books():
- 
-
     form = LoginForm()       
     # Search submit button
     s_form = SearchForm()
@@ -387,67 +388,37 @@ def books():
         process_login(form)
         return redirect('/books')
 
-
-    if not s_form.location.data:
-        # Get user's location
-        if current_user.is_authenticated:
-            s_form.location.data = current_user.location
-
-        # If user's location unknown, load the default
-        else:
-            s_form.location.data = "University of Washington"
-
-    # If user hit "search"
-    if s_form.validate_on_submit():
-        return search()
-    else:
-        # order_by at the end shows newest Books first
-        allbooks = Book.query.filter(Book.owner.has(location=s_form.location.data)).order_by(Book.id.desc())
-
-    return render_template('browse.html', form=form, s_form=s_form, allbooks=allbooks, searchState="All Books at " + s_form.location.data, locations = user_locations )
-
-
-##
-# Searches database with user given search parameters. 
-##
-def search():
-    form = LoginForm()
-    # Search submit form
-    s_form = SearchForm()
-    
-    # User has hit login
-    if form.validate_on_submit():
-        process_login(form)
-
     # If no location data entered
     if not s_form.location.data:
         # Get user's location
         if current_user.is_authenticated:
             s_form.location.data = current_user.location
-
-        # If user's location unknown, load the default
         else:
-            s_form.location.data = "University of Washington" 
+        # If user's location unknown, load the default
+            s_form.location.data = DEFAULT_LOCATION
         
-        flash("No location entered. Using " + s_form.location.data, 'info')
+        if 'POST' == request.method:
+            flash("No location entered. Using " + s_form.location.data, 'info')
 
+    if 'POST' == request.method and not s_form.validate_on_submit():
+        flash_errors(s_form)
+        return render_template('browse.html', form=form, s_form=s_form, found_books=None, searchState="Please rephrase your search", locations = user_locations);
 
     search = s_form.search.data
     location = s_form.location.data 
-    searchState = "All Books"
+    searchState = "Books at " + location
 
-    if len(search) > 0:
+    if search:
         search_params = '%{0}%'.format(search)
 
         # Searches if title or author contains the search parameter
-        allbooks = Book.query.filter( Book.owner.has(location=location), Book.title.ilike(search_params) | Book.author.ilike(search_params) );
-
+        found_books = Book.query.filter( Book.owner.has(location=location), Book.title.ilike(search_params) | Book.author.ilike(search_params) ).limit(QUERY_LIMIT);
         searchState = 'Results for \"'+ search + '\"';
     else:
-        # User has entered a blank search, just display all books
-        allbooks = Book.query.filter.Book.owner.has(location=location).order_by(Book.id.desc())
+        # User has entered a blank search or just opened /books, just display any books
+        found_books = Book.query.filter(Book.owner.has(location=location)).limit(QUERY_LIMIT)
 
-    return render_template('browse.html', form=form, s_form=s_form, allbooks=allbooks, searchState=searchState, locations = user_locations );
+    return render_template('browse.html', form=form, s_form=s_form, found_books=found_books, searchState=searchState, locations = user_locations);
     
 
 ##

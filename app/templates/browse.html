@@ -4,11 +4,10 @@
 
 {% block scripts %}
 {{ super() }}
-<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.autoc.min.js') }}"></script>
-<script type="text/javascript">$('#autoc').autocomplete({ lookup: {{ locations | tojson }} });</script>
+<script src="{{ url_for('static', filename='js/jquery.autoc.min.js') }}"></script>
+<script>$('#autoc').autocomplete({ lookup: {{ locations | tojson }} });</script>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/autoc.css') }}">
 {% endblock %}
-
 
 {% block page_content %}
 
@@ -19,13 +18,13 @@
         <div class="list-group">
           <form class="custom-pad-under" action="" method="post" >
             {{ s_form.hidden_tag() }}
-            {{ s_form.search(style="width: 100%", class="form-control", placeholder="Search by Title, Author, ISBN, ...", autofocus="autofocus") }}
+            {{ s_form.search(style="width: 100%", class="form-control", placeholder="Search by Title, Author, ...", autofocus="autofocus") }}
             {{ s_form.location(style="width: 100%", class="form-control", placeholder="Your school", id="autoc") }}
             {{ s_form.submit(class="hidden") }}
           </form>
-          {% if allbooks[0] %}
-                {% for book in allbooks %}
-                <a type="button" class="list-group-item" href='/b/{{ book.id }}'>
+          {% if found_books[0] %}
+                {% for book in found_books%}
+                <a class="list-group-item" href='/b/{{ book.id }}'>
                         "{{ book.title }}" by {{ book.author }}
                                 {% if book.price <= 0 %}
                                 <span class="badge badge-success">
@@ -35,18 +34,14 @@
                                  ${{ "%.2f" % book.price }}
                                 {% endif %}
                                 </span>
-                                <span class="badge float-center hidden-xs">Condition: {{ book.condition }}/5</span>
+                                <span class="badge hidden-s">Condition: {{ book.condition }}/5</span>
                 </a>
                 {% endfor %}
 
         {% else %}
-        <a type="button" class="list-group-item list-group-item-info"><b>No books found :(</b></a>
+        <div type="button" class="list-group-item list-group-item-info">No books found :( Help out by <b><a href="/add">adding</a></b> your books!</div>
         {% endif %}
         </div>
 
   </div>
-
-
-
-
 {% endblock %}

@@ -182,6 +182,6 @@ def process_login(form):
 
 
 class SearchForm(Form):
-    location = StringField('Location', validators=[Required(), Length(1,64)])
-    search = StringField('Search Terms', validators=[Required(), Length(1,128)])
+    location = StringField('Location', validators=[Length(0,64, "Too Long")])
+    search   = StringField('Search Terms', validators=[Length(0,64, "Too Long")])
     submit = SubmitField('Search')
