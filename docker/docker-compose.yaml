@@ -12,6 +12,7 @@ services:
 
     environment:
       - RUN_MODE=production
+      - SECRET_KEY=${COMPOSE_APP_SECRET_KEY}
       - DB_USER=${COMPOSE_DB_USER}
       - DB_PASS=${COMPOSE_DB_PASSWORD}
 
