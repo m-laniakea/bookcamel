@@ -12,8 +12,8 @@ services:
 
     environment:
       - RUN_MODE=production
-      - DB_USER=camel
-      - DB_PASS=camel
+      - DB_USER=${COMPOSE_DB_USER}
+      - DB_PASS=${COMPOSE_DB_PASSWORD}
 
     depends_on:
       - postgres
@@ -31,8 +31,8 @@ services:
       - 5432
 
     environment:
-      - POSTGRES_USER=camel
-      - POSTGRES_PASSWORD=camel
+      - POSTGRES_USER=${COMPOSE_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${COMPOSE_POSTGRES_PASSWORD}
 
 
   nginx:
